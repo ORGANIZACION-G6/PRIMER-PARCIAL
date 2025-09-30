@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PrimerParcial1.Data;
+using PrimerParciaL1.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

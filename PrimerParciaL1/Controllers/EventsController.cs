@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using PrimerParciaL1.Models;
-using PrimerParcialProgra.Data;
+using PrimerParciaL1.Data;
 
 
-namespace PrimerParciaL1Progra.Controllers;
+namespace PrimerParciaL1.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

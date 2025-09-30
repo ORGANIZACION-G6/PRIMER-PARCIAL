@@ -1,22 +1,23 @@
 using Microsoft.EntityFrameworkCore;
-using PrimerParcial1.Models;
+using PrimerParciaL1.Models;
 
-namespace PrimerParcial1.Data;
-
-public class AppDbContext : DbContext
+namespace PrimerParciaL1.Data
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-
-    public DbSet<Product> Products => Set<Products>();
-    public DbSet<Event> Events => Set<Event>();
-    public DbSet<SupportTicket> SupportTickets => Set<SupportTicket>();
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public class AppDbContext : DbContext
     {
-        base.OnModelCreating(modelBuilder);
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        modelBuilder.Entity<SupportTicket>().HasIndex(t => t.Status);
-        modelBuilder.Entity<SupportTicket>().HasIndex(t => t.Severity);
-        modelBuilder.Entity<SupportTicket>().HasIndex(t => t.RequesterEmail);
+        public DbSet<Product> Products => Set<Product>();
+        public DbSet<Event> Events => Set<Event>();
+        public DbSet<SupportTicket> SupportTickets => Set<SupportTicket>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<SupportTicket>().HasIndex(t => t.Status);
+            modelBuilder.Entity<SupportTicket>().HasIndex(t => t.Severity);
+            modelBuilder.Entity<SupportTicket>().HasIndex(t => t.RequesterEmail);
+        }
     }
 }
