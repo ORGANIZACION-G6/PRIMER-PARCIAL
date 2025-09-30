@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrimerParciaL1.Data;
 
-#nullable disable
+#nullable disable<
 
 namespace PrimerParciaL1.Migrations
 {
@@ -141,3 +141,4 @@ namespace PrimerParciaL1.Migrations
         }
     }
 }
+
