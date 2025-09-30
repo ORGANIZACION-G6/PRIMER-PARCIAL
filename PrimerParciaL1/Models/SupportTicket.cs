@@ -1,28 +1,34 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PrimerParcial1.Models;
+namespace PrimerParciaL1.Models;
 
 public class SupportTicket
 {
-    public int Id { get; set; } // PK
+    public int Id { get; set; }                           // PK
+    public string Subject { get; set; } = null!;          // Asunto obligatorio
+    public string RequesterEmail { get; set; } = null!;   // Email obligatorio
+    public string? Description { get; set; }              // Puede ser nulo
+    public SeverityLevel Severity { get; set; }           // Enum para severidad
+    public TicketStatus Status { get; set; }              // Enum para estado
+    public DateTime OpenedAt { get; set; }                // Fecha apertura
+    public DateTime? ClosedAt { get; set; }               // Fecha cierre (nullable)
+    public string? AssignedTo { get; set; }               // Usuario asignado (nullable)
+}
 
-    [Required, StringLength(200)]
-    public string Subject { get; set; } = default!;
+// Enumeración para severidad
+public enum SeverityLevel
+{
+    Low,
+    Medium,
+    High,
+    Critical
+}
 
-    [Required, EmailAddress, StringLength(200)]
-    public string RequesterEmail { get; set; } = default!;
-
-    public string? Description { get; set; } // nullable
-
-    [Required]
-    public TicketSeverity Severity { get; set; }
-
-    [Required]
-    public TicketStatus Status { get; set; } = TicketStatus.Open;
-
-    public DateTime OpenedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? ClosedAt { get; set; } // nullable
-
-    public string? AssignedTo { get; set; } // nullable
+// Enumeración para estado del ticket
+public enum TicketStatus
+{
+    Open,
+    InProgress,
+    OnHold,
+    Closed
 }
