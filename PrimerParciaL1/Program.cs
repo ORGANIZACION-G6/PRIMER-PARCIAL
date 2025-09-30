@@ -1,23 +1,43 @@
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using PrimerParcial1.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Controllers + enums como texto en JSON ("Open", "High", etc.)
+builder.Services.AddControllers()
+    .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// EF Core (usa la cadena "DefaultConnection" de appsettings.json)
+builder.Services.AddDbContext<AppDbContext>(opts =>
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Swagger (Swashbuckle)
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "PrimerParcial1 API", Version = "v1" });
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Endpoints simples para comprobar rápido
+app.MapGet("/", () => "API OK");
+app.MapGet("/ping", () => "pong");
+
+// Swagger UI
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.MapOpenApi();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "PrimerParcial1 API v1");
+});
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
