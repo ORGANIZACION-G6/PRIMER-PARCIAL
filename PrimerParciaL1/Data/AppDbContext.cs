@@ -1,9 +1,21 @@
 using Microsoft.EntityFrameworkCore;
-using PrimerParciaL1.Models;
+using PrimerParcial1.Models;
 
-namespace PrimerParcialProgra.Data;
+namespace PrimerParcial1.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext : DbContext
 {
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
     public DbSet<Event> Events => Set<Event>();
+    public DbSet<SupportTicket> SupportTickets => Set<SupportTicket>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<SupportTicket>().HasIndex(t => t.Status);
+        modelBuilder.Entity<SupportTicket>().HasIndex(t => t.Severity);
+        modelBuilder.Entity<SupportTicket>().HasIndex(t => t.RequesterEmail);
+    }
 }
