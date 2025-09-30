@@ -12,8 +12,8 @@ using PrimerParciaL1.Data;
 namespace PrimerParciaL1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250930041755_AddTables")]
-    partial class AddTables
+    [Migration("20250930043655_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
